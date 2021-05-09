@@ -1,1 +1,0 @@
-ist = [] i = iter(lst) next(i)

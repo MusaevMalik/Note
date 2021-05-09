@@ -7,7 +7,21 @@
 
 # Пример:
 
-class MyClass(object):
-    pass 
-var1 = type('MyClass', (), {"meta":True})
-print(var1.meta)
+# описание метакласса
+class myobject(type):
+    # небольшое вмешательство в момент выделения памяти для класса
+    def __new__(cls, name, bases, dict):
+        print "NEW", cls.__name__, name, bases, dict
+        return type.__new__(cls, name, bases, dict)
+    # небольшое вмешательство в момент инициализации класса
+    def __init__(cls, name, bases, dict):
+        print "INIT", cls.__name__, name, bases, dict
+        return super(myobject, cls).__init__(name, bases, dict)
+# порождение класса на основе метакласса (заменяет оператор class)
+MyObject = myobject("MyObject", (), {})
+# обычное наследование другого класса из только что порожденного
+class MySubObject(MyObject):
+    def __init__(self, param):
+        print param
+# получение экземпляра класса
+myobj = MySubObject("parameter")

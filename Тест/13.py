@@ -6,19 +6,24 @@
 
 # Пример:
 
-class GraphicalEntity:
-    def __init__(self, pos_x, pos_y, size_x, size_y):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.size_x = size_x
-        self.size_y = size_y
-
-
-class ResizableMixin:
-    def resize(self, size_x, size_y):
-        self.size_x = size_x
-        self.size_y = size_y
-
-
-class ResizableGraphicalEntity(GraphicalEntity, ResizableMixin):
-    pass
+  
+class BaseClass(object):
+        def test(self):
+                return 'BaseClass'
+ 
+class Mixin1(object):
+        def test(self):
+                return 'Mixin1'
+ 
+class Mixin2(object):
+        def test(self):
+                return 'Mixin2'
+ 
+class MyClass1(BaseClass, Mixin1, Mixin2):
+        pass
+ 
+class MyClass2(Mixin2, Mixin1, BaseClass):
+        pass
+ 
+print(MyClass1().test())
+print(MyClass2().test()) 
